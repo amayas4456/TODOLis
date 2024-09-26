@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion / Inscription</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+
+        .auth-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-container h2 {
+            font-size: 2rem;
+            color: #4a5c9d;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .auth-container button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #4a5c9d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-container button:hover {
+            background-color: #3b4b82;
+        }
+
+        .auth-container p {
+            margin-top: 1rem;
+            color: #888;
+        }
+
+        .auth-container a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .auth-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="auth-container">
+        <h2>Connexion / Inscription</h2>
+        <form id="auth-form">
+            <input id="username" type="text" placeholder="Nom d'utilisateur" required>
+            <input id="password" type="password" placeholder="Mot de passe" required>
+            <button id="login-btn">Connexion</button>
+            <p>Pas encore de compte ? <a href="#" id="signup-btn">Inscrivez-vous ici</a></p>
+        </form>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>

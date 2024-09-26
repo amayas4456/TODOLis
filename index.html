@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Genius - Accueil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #4a5c9d;
+        }
+        
+        .feature-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon {
+            font-size: 3rem;
+            color: #4a5c9d;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #4a5c9d;
+            color: white;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assets/img/logo.png" alt="Logo" class="h-10 mr-3">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">Todo Genius</a>
+            </div>
+            <ul class="flex space-x-6 text-gray-700">
+                <li><a href="index.html" class="hover:text-indigo-600">Accueil</a></li>
+                <li><a href="tasks.html" class="hover:text-indigo-600">Tâches</a></li>
+                <li><a href="stats.html" class="hover:text-indigo-600">Statistiques</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact</a></li>
+                <li><a href="login.html" class="hover:text-indigo-600">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container mx-auto">
+            <h1 class="text-5xl font-bold mb-6">Bienvenue sur Todo Genius </h1>
+            <p class="text-xl mb-10">Découvrez mes projets, mes statistiques, et gérez vos tâches efficacement.</p>
+            <a href="tasks.html" class="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-indigo-100 transition">Commencer à gérer mes tâches</a>
+        </div>
+    </section>
+
+    <!-- Section supplémentaire pour une meilleure présentation, en horizontal -->
+    <section class="container mx-auto my-20">
+        <div class="flex justify-between space-x-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg feature-box text-center">
+                <i class="fas fa-tasks icon"></i>
+                <h2 class="section-title">Gestion des Tâches</h2>
+                <p class="text-gray-600">Organisez vos tâches, suivez votre progression et améliorez votre productivité.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg feature-box text-center">
+                <i class="fas fa-chart-line icon"></i>
+                <h2 class="section-title">Tableau de Bord</h2>
+                <p class="text-gray-600">Visualisez vos statistiques, suivez votre productivité et planifiez vos projets.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg feature-box text-center">
+                <i class="fas fa-users icon"></i>
+                <h2 class="section-title">Collaboration</h2>
+                <p class="text-gray-600">Collaborez avec d'autres utilisateurs et gérez des projets en équipe.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer avec espace supplémentaire -->
+    <footer class="text-center">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Todo Genius - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

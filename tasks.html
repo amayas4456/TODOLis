@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Genius - Gestion des Tâches</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .task-column {
+            background-color: #f4f5f7;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .task-column h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #4a5c9d;
+        }
+
+        .task-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .task-card:hover {
+            background-color: #e2e8f0;
+            cursor: pointer;
+        }
+
+        .add-task-btn {
+            background-color: #4a5c9d;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-task-btn:hover {
+            background-color: #3b4a76;
+        }
+
+        footer {
+            background-color: #4a5c9d;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .étiquette-verte { background-color: #28a745; }
+        .étiquette-rouge { background-color: #dc3545; }
+        .étiquette-bleue { background-color: #007bff; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assets/img/logo.png" alt="Logo" class="h-10 mr-3">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">Todo Genius</a>
+            </div>
+            <ul class="flex space-x-6 text-gray-700">
+                <li><a href="index.html" class="hover:text-indigo-600">Accueil</a></li>
+                <li><a href="tasks.html" class="hover:text-indigo-600">Tâches</a></li>
+                <li><a href="stats.html" class="hover:text-indigo-600">Statistiques</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact</a></li>
+                <li><a href="login.html" class="hover:text-indigo-600">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="container mx-auto mt-24">
+        <!-- Barre d'ajout de tâches -->
+        <div class="mb-6 flex justify-center items-center">
+            <div class="w-2/3 flex flex-col">
+                <input id="task-input" type="text" class="w-full px-4 py-2 rounded-lg bg-white border border-gray-300 focus:outline-none" placeholder="Ajouter une nouvelle tâche...">
+                <select id="label-select" class="mt-2 bg-white border border-gray-300 rounded-lg">
+                    <option value="">Aucune Étiquette</option>
+                    <option value="étiquette-verte">Vert</option>
+                    <option value="étiquette-rouge">Rouge</option>
+                    <option value="étiquette-bleue">Bleu</option>
+                </select>
+                <button id="add-task-btn" class="add-task-btn mt-2">Ajouter Tâche</button>
+            </div>
+        </div>
+
+        <!-- Task Columns (To-Do, In Progress, Done) -->
+        <div class="flex space-x-4 overflow-x-auto justify-center">
+            <!-- To-Do Column -->
+            <div class="w-1/3 task-column">
+                <h2>À faire</h2>
+                <ul id="todo-column" class="space-y-4">
+                    <!-- Les cartes de tâches seront ajoutées ici dynamiquement -->
+                </ul>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="w-1/3 task-column">
+                <h2>En cours</h2>
+                <ul id="in-progress-column" class="space-y-4">
+                    <!-- Les cartes de tâches en cours seront ajoutées ici -->
+                </ul>
+            </div>
+
+            <!-- Done Column -->
+            <div class="w-1/3 task-column">
+                <h2>Terminé</h2>
+                <ul id="done-column" class="space-y-4">
+                    <!-- Les tâches terminées seront ajoutées ici -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container mx-auto">
+            <p>&copy; 2024 Todo Genius - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript pour les tâches -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélection des éléments
+            const taskInput = document.getElementById('task-input');
+            const addTaskBtn = document.getElementById('add-task-btn');
+            const todoColumn = document.getElementById('todo-column');
+            const inProgressColumn = document.getElementById('in-progress-column');
+            const doneColumn = document.getElementById('done-column');
+            const labelSelect = document.getElementById('label-select');
+
+            // Charger les tâches depuis LocalStorage
+            loadTasksFromLocalStorage();
+
+            // Fonction pour créer une carte de tâche
+            function createTaskCard(taskText, label) {
+                const taskCard = document.createElement('li');
+                taskCard.classList.add('task-card');
+                taskCard.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span>${taskText}</span>
+                        <button class="delete-btn text-red-500 hover:text-red-600"><i class="fas fa-trash"></i></button>
+                    </div>
+                    ${label ? `<span class="label ${label}">${getLabelName(label)}</span>` : ''}
+                `;
+
+                // Suppression d'une tâche
+                const deleteBtn = taskCard.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', function() {
+                    taskCard.remove();
+                    saveTasksToLocalStorage(); // Sauvegarder après suppression
+                });
+
+                return taskCard;
+            }
+
+            // Ajouter une tâche dans la colonne "À faire"
+            addTaskBtn.addEventListener('click', function() {
+                const taskText = taskInput.value.trim();
+                const selectedLabel = labelSelect.value;
+
+                if (taskText) {
+                    const taskCard = createTaskCard(taskText, selectedLabel);
+                    todoColumn.prepend(taskCard);  // Ajouter à la colonne "À faire"
+                    taskInput.value = '';  // Réinitialiser le champ de saisie
+                    labelSelect.value = ''; // Réinitialiser la sélection des étiquettes
+                    saveTasksToLocalStorage();  // Sauvegarder dans LocalStorage
+                }
+            });
+
+            // Sauvegarder les tâches dans LocalStorage
+            function saveTasksToLocalStorage() {
+                const tasks = {
+                    todo: getTasksFromColumn(todoColumn),
+                    inProgress: getTasksFromColumn(inProgressColumn),
+                    done: getTasksFromColumn(doneColumn)
+                };
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+
+            // Fonction pour obtenir les tâches d'une colonne
+            function getTasksFromColumn(column) {
+                const tasks = [];
+                column.querySelectorAll('.task-card span').forEach(task => {
+                    tasks.push(task.innerText);
+                });
+                return tasks;
+            }
+
+            // Charger les tâches depuis LocalStorage au démarrage
+            function loadTasksFromLocalStorage() {
+                const tasks = JSON.parse(localStorage.getItem('tasks')) || { todo: [], inProgress: [], done: [] };
+
+                tasks.todo.forEach(task => {
+                    const taskCard = createTaskCard(task, ''); // No label for loading
+                    todoColumn.prepend(taskCard);
+                });
+                tasks.inProgress.forEach(task => {
+                    const taskCard = createTaskCard(task, ''); // No label for loading
+                    inProgressColumn.prepend(taskCard);
+                });
+                tasks.done.forEach(task => {
+                    const taskCard = createTaskCard(task, ''); // No label for loading
+                    doneColumn.prepend(taskCard);
+                });
+            }
+
+            // Activer le drag-and-drop avec Sortable.js
+            new Sortable(todoColumn, { group: 'shared', animation: 150, onEnd: saveTasksToLocalStorage });
+            new Sortable(inProgressColumn, { group: 'shared', animation: 150, onEnd: saveTasksToLocalStorage });
+            new Sortable(doneColumn, { group: 'shared', animation: 150, onEnd: saveTasksToLocalStorage });
+        });
+
+        // Fonction pour récupérer le nom de l'étiquette
+        function getLabelName(label) {
+            switch (label) {
+                case 'étiquette-verte': return 'Vert';
+                case 'étiquette-rouge': return 'Rouge';
+                case 'étiquette-bleue': return 'Bleu';
+                default: return '';
+            }
+        }
+    </script>
+</body>
+</html>
