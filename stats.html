@@ -9,20 +9,19 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, #667eea, #764ba2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Prendre toute la hauteur de la fenêtre */
         }
 
         .stats-container {
             background: white;
-            padding: 3rem;
+            padding: 2rem; /* Réduire le padding */
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 100%;
             max-width: 600px; /* Largeur maximale */
+            margin: auto; /* Centrer horizontalement */
+            margin-top: 5rem; /* Espace supérieur */
+            margin-bottom: 2rem; /* Espace inférieur */
         }
 
         .stats-container h2 {
@@ -47,7 +46,7 @@
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col justify-between min-h-screen">
 
     <!-- Navbar -->
     <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
@@ -67,7 +66,7 @@
     </nav>
 
     <!-- Main Content -->
-    <section class="container mx-auto mt-24">
+    <section class="container mx-auto mt-24 flex justify-center">
         <div class="stats-container">
             <h2>Statistiques</h2>
             <div class="stat">
@@ -96,6 +95,5 @@
         </div>
     </footer>
 
-    <script src="assets/js/stats.js"></script>
 </body>
 </html>
