@@ -56,7 +56,14 @@
                 <img src="assets/img/logo.png" alt="Logo" class="h-10 mr-3">
                 <a href="index.html" class="text-2xl font-bold text-indigo-600">Todo Genius</a>
             </div>
-            <ul class="flex space-x-6 text-gray-700">
+            <div class="block lg:hidden">
+                <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+            <ul id="nav-links" class="hidden lg:flex space-x-6 text-gray-700">
                 <li><a href="index.html" class="hover:text-indigo-600">Accueil</a></li>
                 <li><a href="tasks.html" class="hover:text-indigo-600">Tâches</a></li>
                 <li><a href="stats.html" class="hover:text-indigo-600">Statistiques</a></li>
@@ -65,6 +72,17 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-white z-40 hidden">
+        <div class="flex flex-col items-center mt-20">
+            <a href="index.html" class="text-lg text-gray-700 py-2">Accueil</a>
+            <a href="tasks.html" class="text-lg text-gray-700 py-2">Tâches</a>
+            <a href="stats.html" class="text-lg text-gray-700 py-2">Statistiques</a>
+            <a href="contact.html" class="text-lg text-gray-700 py-2">Contact</a>
+            <a href="login.html" class="text-lg text-gray-700 py-2">Connexion</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-section text-center">
@@ -105,5 +123,15 @@
 
     <!-- Font Awesome for Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    
+    <!-- JavaScript pour le menu mobile -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
