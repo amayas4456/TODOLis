@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion / Inscription</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Inscription - Todo Genius</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, #667eea, #764ba2);
         }
 
-        .auth-container {
+        .signup-container {
             background: white;
             padding: 3rem;
             border-radius: 12px;
@@ -22,15 +19,17 @@
             text-align: center;
             width: 100%;
             max-width: 400px;
+            margin: auto; /* Centrer horizontalement */
+            margin-top: 5rem; /* Espace supérieur */
         }
 
-        .auth-container h2 {
+        .signup-container h2 {
             font-size: 2rem;
             color: #4a5c9d;
             margin-bottom: 1.5rem;
         }
 
-        .auth-container input {
+        .signup-container input {
             width: 100%;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -39,7 +38,7 @@
             font-size: 1rem;
         }
 
-        .auth-container button {
+        .signup-container button {
             width: 100%;
             padding: 1rem;
             background-color: #4a5c9d;
@@ -51,38 +50,84 @@
             transition: background-color 0.3s ease;
         }
 
-        .auth-container button:hover {
+        .signup-container button:hover {
             background-color: #3b4b82;
         }
 
-        .auth-container p {
+        .signup-container p {
             margin-top: 1rem;
             color: #888;
         }
 
-        .auth-container a {
+        .signup-container a {
             color: #667eea;
             text-decoration: none;
         }
 
-        .auth-container a:hover {
+        .signup-container a:hover {
             text-decoration: underline;
         }
     </style>
-    
 </head>
 <body>
 
-    <div class="auth-container">
-        <h2>Connexion / Inscription</h2>
-        <form id="auth-form">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assets/img/logo.png" alt="Logo" class="h-10 mr-3">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">Todo Genius</a>
+            </div>
+            <ul class="flex space-x-6 text-gray-700">
+                <li><a href="index.html" class="hover:text-indigo-600">Accueil</a></li>
+                <li><a href="tasks.html" class="hover:text-indigo-600">Tâches</a></li>
+                <li><a href="stats.html" class="hover:text-indigo-600">Statistiques</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact</a></li>
+                <li><a href="login.html" class="hover:text-indigo-600">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Signup Container -->
+    <div class="signup-container">
+        <h2>Inscription</h2>
+        <form id="signup-form">
             <input id="username" type="text" placeholder="Nom d'utilisateur" required>
+            <input id="email" type="email" placeholder="Votre email" required>
             <input id="password" type="password" placeholder="Mot de passe" required>
-            <button id="login-btn">Connexion</button>
-            <p>Pas encore de compte ? <a href="#" id="signup-btn">Inscrivez-vous ici</a></p>
+            <button id="signup-btn" type="button">S'inscrire</button>
+            <p>Déjà un compte ? <a href="signup.html">Connectez-vous ici</a></p>
         </form>
     </div>
 
-    <script src="assets/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupBtn = document.getElementById('signup-btn');
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Gestion de l'inscription
+            signupBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prévenir le rechargement de la page
+                const username = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+
+                // Vérifier si les champs sont remplis
+                if (username && email && password) {
+                    const userExists = users.some(user => user.username === username);
+                    if (userExists) {
+                        alert('Ce nom d\'utilisateur est déjà pris. Choisissez-en un autre.');
+                    } else {
+                        users.push({ username, email, password });
+                        localStorage.setItem('users', JSON.stringify(users));
+                        alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
+                        window.location.href = 'login.html'; // Redirige vers la page de connexion après l'inscription
+                    }
+                } else {
+                    alert('Veuillez remplir tous les champs.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
